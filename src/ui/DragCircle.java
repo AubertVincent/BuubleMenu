@@ -71,12 +71,4 @@ class DragCircle extends JPanel {
         super.paintComponent(g);
         g.drawOval(x, y, width, height);
     }
-
-    public static void main(String[] args) {
-        JFrame jFrame = new JFrame();
-        jFrame.setSize(300, 300);
-        jFrame.add(new DragCircle());
-        jFrame.setVisible(true);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 }
