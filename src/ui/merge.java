@@ -13,7 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-class Menu extends JPanel {
+class merge extends JPanel {
 
     private final class MouseDrag extends MouseAdapter {
 
@@ -60,7 +60,7 @@ class Menu extends JPanel {
 
     private MouseDrag mouseDrag;
 
-    public Menu() {
+    public merge() {
  
         setBackground(Color.WHITE);
         mouseDrag = new MouseDrag();
