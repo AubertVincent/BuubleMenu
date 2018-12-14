@@ -5,30 +5,52 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.Ellipse2D;
 
 
-public class Menu extends JFrame{
+
+public class Menu extends JFrame implements MouseMotionListener{
 
 	public Menu() {
-
+		
         initUI();
     }
 	
+//	JFrame frame = new JFrame("DrawingApp");
+    
+    
     private void initUI() {
 
+//    		frame.setSize(600,800);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setVisible(true);
+//        frame.setLocationRelativeTo(null);
+//        
         createMenuBar();
-
+      
         setTitle("Bubble Menu");
         setSize(360, 250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        
+
     }
 
     private void createMenuBar() {
 
+    		
         JMenuBar menubar = new JMenuBar();
-
+        
         JMenu fileMenu = new JMenu("File");
         JMenu impMenu = new JMenu("Import");
         JMenu expMenu = new JMenu("Export");
@@ -88,8 +110,11 @@ public class Menu extends JFrame{
 
         menubar.add(fileMenu);
 
+//        frame.setJMenuBar(menubar);
         setJMenuBar(menubar);
 
+        
+        this.addMouseMotionListener(this);
         
     }
 
@@ -100,4 +125,21 @@ public class Menu extends JFrame{
             ex.setVisible(true);
         });
     }
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+		Graphics g = getGraphics();
+		g.drawOval(e.getX(), e.getY(), 60, 60);
+		g.setColor(Color.BLACK);
+		g.fillOval(e.getX(), e.getY(), 60, 60);
+
+	}
+	
 }
