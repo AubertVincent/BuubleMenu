@@ -18,7 +18,6 @@ class Menu extends JPanel {
     private final class MouseDrag extends MouseAdapter {
 
         private Point last;
-
         @Override
         public void mousePressed(MouseEvent m) {
 			width = 60;
@@ -28,7 +27,6 @@ class Menu extends JPanel {
 			y = last.y;
 			repaint();
         }
-
         @Override
         public void mouseReleased(MouseEvent m) {
         		width = 0;
@@ -78,7 +76,11 @@ class Menu extends JPanel {
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         jFrame.setSize(300, 300);
-        jFrame.add(new DragCircle());
+        Menu dc = new Menu();
+        jFrame.setGlassPane(dc);
+        dc.setOpaque(false);
+        dc.setVisible(true);
+ 
         
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
