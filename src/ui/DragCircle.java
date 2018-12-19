@@ -1,74 +1,90 @@
 package ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
 
 class DragCircle extends JPanel {
 
-    private final class MouseDrag extends MouseAdapter {
+	private final class MouseDrag implements MouseInputListener {
 
-        private Point last;
+		private Point last;
 
-        @Override
-        public void mousePressed(MouseEvent m) {
+		@Override
+		public void mouseMoved(MouseEvent m) {
 			width = 60;
 			height = 60;
 			last = m.getPoint();
 			x = last.x;
 			y = last.y;
+			int dx = m.getX() - last.x;
+			int dy = m.getY() - last.y;
+
+			x += dx;
+			y += dy;
+
+			last = m.getPoint();
 			repaint();
-        }
+		}
 
-        @Override
-        public void mouseReleased(MouseEvent m) {
-        		width = 0;
-			height = 0;
-            repaint();
-        }
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
 
-        @Override
-        public void mouseDragged(MouseEvent m) {
-          last = m.getPoint();
-          x = last.x;
-          y = last.y;
-            int dx = m.getX() - last.x;
-            int dy = m.getY() - last.y;
+		}
 
-                x += dx;
-                y += dy;
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
 
+		}
 
-            last = m.getPoint();
-            repaint();
-        }
-    }
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
 
-    private int x;
-    private int y;
+		}
 
-    int width, height;
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
 
-    private MouseDrag mouseDrag;
+		}
 
-    public DragCircle() {
-    	
-        setBackground(Color.WHITE);
-        mouseDrag = new MouseDrag();
-        addMouseListener(mouseDrag);
-        addMouseMotionListener(mouseDrag);
-    }
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
 
+		}
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawOval(x, y, width, height);
-    }
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	private int x;
+	private int y;
+
+	int width, height;
+
+	private MouseDrag mouseDrag;
+
+	public DragCircle() {
+
+		mouseDrag = new MouseDrag();
+		addMouseListener(mouseDrag);
+		addMouseMotionListener(mouseDrag);
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawOval(x, y, width, height);
+	}
 }
