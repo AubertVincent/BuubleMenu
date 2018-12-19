@@ -5,27 +5,28 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class main {
+public class Main {
 
-	public main() {
-		// TODO Auto-generated constructor stub
+	public Main() {
+
 	}
 
 	private static void createMenuBar() {
 		JFrame jFrame = new JFrame();
-		jFrame.setSize(300, 300);
+		jFrame.setSize(1000, 600);
 		jFrame.setTitle("Bubble Menu");
 		// setLocationRelativeTo(null);
 
-		DragCircle dc = new DragCircle();
-		jFrame.setGlassPane(dc);
-		dc.setOpaque(false);
-		dc.setVisible(true);
+		Menu m = new Menu(100, 100);
+		jFrame.setGlassPane(m);
+		m.setOpaque(false);
+		m.setVisible(true);
 
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JMenuBar menubar = new JMenuBar();
 
 		JMenu fileMenu = new JMenu("File");
+		JMenu otherMenu = new JMenu("Autres");
 		JMenu impMenu = new JMenu("Import");
 		JMenu expMenu = new JMenu("Export");
 
@@ -43,53 +44,54 @@ public class main {
 		expMenu.add(exportpdfMenuItem);
 		expMenu.add(exportwordMenuItem);
 
-		JMenuItem newMenuItem = new JMenuItem("New");
-		JMenuItem openMenuItem = new JMenuItem("Open");
-		JMenuItem saveMenuItem = new JMenuItem("Save");
-
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
-		JMenuItem printMenuItem = new JMenuItem("Print");
-
-		JMenuItem proportiesMenuItem = new JMenuItem("Properties");
-		JMenuItem copyMenuItem = new JMenuItem("Copy");
-		JMenuItem pasteMenuItem = new JMenuItem("Paste");
-		JMenuItem deleteMenuItem = new JMenuItem("Delete");
-		JMenuItem closeMenuItem = new JMenuItem("Close");
-		JMenuItem selectMenuItem = new JMenuItem("Select");
-		JMenuItem fontMenuItem = new JMenuItem("Font");
-		JMenuItem documentMenuItem = new JMenuItem("Font");
+		JMenuItem exitMenuItem2 = new JMenuItem("Exit");
 
 		exitMenuItem.setToolTipText("Exit application");
-
 		exitMenuItem.addActionListener((event) -> System.exit(0));
 
-		fileMenu.add(newMenuItem);
-		fileMenu.add(openMenuItem);
-		fileMenu.add(saveMenuItem);
-		fileMenu.add(copyMenuItem);
-		fileMenu.add(pasteMenuItem);
+		exitMenuItem2.setToolTipText("Exit application");
+		exitMenuItem2.addActionListener((event) -> System.exit(0));
+
+		fileMenu.add(new JMenuItem("Save"));
+		fileMenu.add(new JMenuItem("Open"));
+		fileMenu.add(expMenu);
+		fileMenu.add(exitMenuItem2);
+		fileMenu.add(new JMenuItem("Print"));
 		fileMenu.addSeparator();
 		fileMenu.add(impMenu);
-		fileMenu.add(expMenu);
+		fileMenu.add(new JMenuItem("Copy"));
 		fileMenu.addSeparator();
-		fileMenu.add(exitMenuItem);
-		fileMenu.add(printMenuItem);
-		fileMenu.add(deleteMenuItem);
-		fileMenu.add(proportiesMenuItem);
-		fileMenu.add(selectMenuItem);
-		fileMenu.add(fontMenuItem);
-		fileMenu.add(documentMenuItem);
-		fileMenu.add(closeMenuItem);
+		fileMenu.add(new JMenuItem("Paste"));
+		fileMenu.add(new JMenuItem("Delete"));
+		fileMenu.add(new JMenuItem("Close"));
+		fileMenu.add(new JMenuItem("Select"));
+
+		otherMenu.add(new JMenuItem("Save"));
+		otherMenu.add(new JMenuItem("Open"));
+		otherMenu.add(new JMenuItem("Save"));
+		otherMenu.add(exitMenuItem);
+		otherMenu.add(new JMenuItem("Print"));
+		otherMenu.addSeparator();
+		otherMenu.add(new JMenuItem("Properties"));
+		otherMenu.add(new JMenuItem("Copy"));
+		otherMenu.addSeparator();
+		otherMenu.add(new JMenuItem("Paste"));
+		otherMenu.add(new JMenuItem("Delete"));
+		otherMenu.add(new JMenuItem("Close"));
+		otherMenu.add(new JMenuItem("Select"));
 
 		menubar.add(fileMenu);
+		menubar.add(otherMenu);
 		jFrame.setJMenuBar(menubar);
 		jFrame.setVisible(true);
+
+		jFrame.addMouseMotionListener(new MouseListener(m));
 
 	}
 
 	public static void main(String[] args) {
 		createMenuBar();
-		new Menu();
 	}
 
 }

@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
-public class Listener implements MouseInputListener {
+public class MouseListener implements MouseInputListener {
 
 	private int x;
 	private int y;
@@ -16,7 +16,7 @@ public class Listener implements MouseInputListener {
 	int width, height;
 	private Menu menu;
 
-	public Listener(Menu menu) {
+	public MouseListener(Menu menu) {
 		this.menu = menu;
 		// addMouseListener();
 		// addMouseMotionListener();
@@ -68,10 +68,15 @@ public class Listener implements MouseInputListener {
 		int dx = e.getX() - last.x;
 		int dy = e.getY() - last.y;
 
-		x += dx;
-		y += dy;
+		// x += dx;
+		// y += dy;
 
 		last = e.getPoint();
+		System.out.println(x);
+		System.out.println(y);
+
+		menu.setX(x);
+		menu.setY(y);
 		menu.repaint();
 
 	}

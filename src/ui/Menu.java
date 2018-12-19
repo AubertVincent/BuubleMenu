@@ -1,28 +1,52 @@
 package ui;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Graphics;
 
-import javax.swing.JFrame;
+import javax.swing.JComponent;
 
-public class Menu extends JFrame {
+public class Menu extends JComponent {
 
-	public Menu() {
+	private int x;
+	private int y;
 
-		initUI();
+	int width = 100, height = 100;
+
+	private MouseListener mouseDrag;
+
+	public Menu(int x, int y) {
+		this.x = x;
+		this.y = y;
+
+		// mouseDrag = new Listener(null);
+		// addMouseListener(mouseDrag);
+		// addMouseMotionListener(mouseDrag);
 	}
 
-	private void initUI() {
-
-		// setTitle("Bubble Menu");
-		// setSize(360, 250);
-		// setLocationRelativeTo(null);
-		// setDefaultCloseOperation(EXIT_ON_CLOSE);
+	public void setxy(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
-	public static void main(String[] args) {
+	public int getX() {
+		return x;
+	}
 
-		EventQueue.invokeLater(() -> {
-			new Menu();
-		});
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.setColor(new Color(0, 0, 0, 100));
+		g.fillOval(x, y, width, height);
 	}
 }
