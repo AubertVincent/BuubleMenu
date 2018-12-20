@@ -17,6 +17,7 @@ public class Main extends MouseAdapter{
 	public static void main(String[] args) {
 		
 		ArrayList<JComponent> items = new ArrayList<JComponent>();
+		
 						
 		JFrame jFrame = new JFrame();
 		jFrame.setSize(300, 300);

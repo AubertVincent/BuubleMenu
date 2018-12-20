@@ -1,15 +1,19 @@
 package ui;
 
-import java.awt.Component;
+
+import java.awt.ComponentOrientation;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.event.MouseInputListener;
+
+import com.sun.javafx.geom.Rectangle;
 
 
 public class MouseListener implements MouseInputListener, MouseMotionListener {
@@ -23,17 +27,15 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 	int width, height;
 	private Point last;
 	
+	ArrayList<JMenuItem> favItems = new ArrayList<JMenuItem>();
 	
-	public MouseListener (DrawCircle circle, JComponent component) {
+	public MouseListener (DrawCircle circle, JComponent component, ArrayList<JMenuItem> favItems, JPanel panel) {
 		this.circle = circle;
 		this.component = component;
-//		this.panel = panel;
+		this.panel = panel;
+		this.favItems = favItems;
 	}
 
-	public MouseListener(DrawCircle circle) {
-		// TODO Auto-generated constructor stub
-		this.circle = circle;
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -45,21 +47,24 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 //		if(e.getComponent() instanceof JMenu) {
-		if (component instanceof JMenu) {
+//		if (component instanceof JMenu) {
+//
+//			((JMenu)component).doClick();
+//		}
+		
 
-			((JMenu)component).doClick();
-		}
-			
-		last = e.getPoint();
-		x = last.x;
-		y = last.y;
-		width = y;
-		height = y;
-		circle.setX(x);
-		circle.setY(y);
-		circle.setWidth(width);
-		circle.setHeight(height);
-		circle.repaint();
+//		x = last.x;
+//		y = last.y;
+//		width = y+60;
+//		height = y+60;
+//		
+//		circle.setX(x);
+//		circle.setY(y);
+//		circle.setWidth(width);
+//		circle.setHeight(height);
+//		circle.repaint();
+		
+		
 	}
 
 	@Override
@@ -105,15 +110,20 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 
 		x += dx;
 		y += dy;
-		width = y;
-		height = y;
+		width = y+70;
+		height = y+70;
+
 
 		circle.setX(x);
 		circle.setY(y);
 		circle.setWidth(width);
 		circle.setHeight(height);
-		
 		last = e.getPoint();
+
+		if(component.getComponentAt(last) instanceof JMenuItem) {
+			System.out.println("here");
+		}
+		
 		circle.repaint();
 		
 	}

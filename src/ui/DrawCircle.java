@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 
 public class DrawCircle extends JComponent {
@@ -33,6 +32,7 @@ public class DrawCircle extends JComponent {
 		this.y = y;
 	}
 
+	@Override
 	public int getX() {
 		return x;
 	}
@@ -41,6 +41,7 @@ public class DrawCircle extends JComponent {
 		this.x = x;
 	}
 
+	@Override
 	public int getY() {
 		return y;
 	}
@@ -49,10 +50,13 @@ public class DrawCircle extends JComponent {
 		this.y = y;
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		//super.paintComponent(g);
+		getBounds();
 		g.setColor(new Color(0, 0, 0, 100));
-		g.fillOval(x, y, width, height);
+		g.fillOval(x, y, this.width, this.height);
+		
 	}
 
 	public void setWidth(int width) {
