@@ -2,6 +2,9 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -32,7 +35,7 @@ public class Test {
 		
 		DrawCircle circle = new DrawCircle();
 		
-		
+		circle.setBounds(0, 0, 0, 0);
 		for (int i = 0; i<3; i++) {
 			JMenuItem j = new JMenuItem("Sous-menu " + i);
 			menu2.add(j);
@@ -51,6 +54,13 @@ public class Test {
 				favItems.add(j);
 				j.setOpaque(true);
 				j.setBackground(Color.CYAN);
+				j.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) { //action quand on clique sur un item du menu.
+						System.out.println(j.getText() +" clicked");
+					}
+				});
 			}
 			j.addMouseListener(new MouseListener(circle, j, favItems, panel));
 			menu.add(j);
@@ -63,6 +73,7 @@ public class Test {
 		menu.add(menu3);
 		
 //		panel.setLayout(new BorderLayout());
+
 		panel.add(menubar, BorderLayout.NORTH);
 		
 		jFrame.add(panel);

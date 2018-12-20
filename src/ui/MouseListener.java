@@ -1,7 +1,9 @@
 package ui;
 
 
+import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.RootPaneContainer;
+import javax.swing.SwingUtilities;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.event.MouseInputListener;
@@ -29,6 +33,8 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 	
 	ArrayList<JMenuItem> favItems = new ArrayList<JMenuItem>();
 	
+	JMenuItem item;
+	
 	public MouseListener (DrawCircle circle, JComponent component, ArrayList<JMenuItem> favItems, JPanel panel) {
 		this.circle = circle;
 		this.component = component;
@@ -46,24 +52,14 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-//		if(e.getComponent() instanceof JMenu) {
-//		if (component instanceof JMenu) {
-//
-//			((JMenu)component).doClick();
-//		}
-		
 
-//		x = last.x;
-//		y = last.y;
-//		width = y+60;
-//		height = y+60;
-//		
-//		circle.setX(x);
-//		circle.setY(y);
-//		circle.setWidth(width);
-//		circle.setHeight(height);
-//		circle.repaint();
-		
+		last = e.getPoint();
+
+		if (e.getComponent() instanceof JMenu) {
+			favItems.get(0).doClick();
+				
+		}
+
 		
 	}
 
@@ -120,13 +116,33 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 		circle.setHeight(height);
 		last = e.getPoint();
 
-		if(component.getComponentAt(last) instanceof JMenuItem) {
+		circle.setBounds(x,y, 50,50);
+
+
+		
+		
+		if(component.getComponentAt(last) instanceof JMenuItem && favItems.contains(component.getComponentAt(last) )) {
 			System.out.println("here");
 		}
 		
 		circle.repaint();
 		
 	}
+	
+//	 public static Component findComponentUnderGlassPaneAt(Point p, Component top) {
+//		    Component c = null;
+//
+//		    if (top.isShowing()) {
+//		      if (top instanceof RootPaneContainer)
+//		        c =
+//		        ((RootPaneContainer) top).getLayeredPane().findComponentAt(
+//		            SwingUtilities.convertPoint(top, p, ((RootPaneContainer) top).getLayeredPane()));
+//		      else
+//		        c = ((Container) top).findComponentAt(p);
+//		    }
+//
+//		    return c;
+//		  }
 
 	
 }

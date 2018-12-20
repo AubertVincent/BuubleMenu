@@ -53,9 +53,10 @@ public class DrawCircle extends JComponent {
 	@Override
 	public void paintComponent(Graphics g) {
 		//super.paintComponent(g);
-		getBounds();
+
 		g.setColor(new Color(0, 0, 0, 100));
-		g.fillOval(x, y, this.width, this.height);
+//		System.out.println(this.getWidth());
+		g.fillOval(0, 0, 50, 50);
 		
 	}
 
