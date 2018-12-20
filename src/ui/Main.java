@@ -1,47 +1,40 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JComponent;
 
-public class Menu extends MouseAdapter{
+public class Main extends MouseAdapter{
 
-	public Menu() {
-
-		initUI();
-	}
-
-	private void initUI() {
-
-		createMenuBar();
-	}
-
-	JMenu fileMenu;
-	
-	private void createMenuBar() {
+	public static void main(String[] args) {
+		
+		ArrayList<JComponent> items = new ArrayList<JComponent>();
+						
 		JFrame jFrame = new JFrame();
 		jFrame.setSize(300, 300);
 		jFrame.setTitle("Bubble Menu");
-//		setLocationRelativeTo(null);
-
 		
+		JPanel panel = new JPanel();
 		
+		DrawCircle circle = new DrawCircle();
 		
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
 		JMenuBar menubar = new JMenuBar();
 		
-		fileMenu = new JMenu("File");
+		
+		JMenu fileMenu = new JMenu("File");
 		JMenu impMenu = new JMenu("Import");
 		JMenu expMenu = new JMenu("Export");
-
+		
 
 		JMenuItem  newsMenuItem = new JMenuItem("Import newsfeed list...");
 		JMenuItem  bookmarksMenuItem = new JMenuItem("Import bookmarks...");
@@ -97,34 +90,45 @@ public class Menu extends MouseAdapter{
 
 		menubar.add(fileMenu);
 		
+//		panel.add(menubar);
+
 		jFrame.setJMenuBar(menubar);
 		
-		DragCircle dc = new DragCircle();
+//		jFrame.add(panel);
+		
+//		DrawCircle circle = new DrawCircle();
 
-		jFrame.setGlassPane(dc);
-
-		dc.setOpaque(false);
-		dc.setVisible(true);
-		dc.addMouseListener(this);
-		dc.addMouseMotionListener(this);
+		MouseListener ml = new MouseListener(circle, fileMenu);
+		circle.addMouseListener(ml);
+		circle.addMouseMotionListener(ml);
 		
 
+		
 
+//		int menucount = menubar.getMenuCount();
+//		JMenu jmenu;
+//		for (int i=0; i<menucount; i++) {
+//			jmenu = menubar.getMenu(i);
+//			System.out.println(jmenu.getName());
+//			
+//			MouseListener ml3 = new MouseListener(circle, jmenu);
+//			menubar.addMouseListener(ml3);
+//			menubar.addMouseMotionListener(ml3);
+//
+//			int jmenucount = jmenu.getMenuComponentCount();
+//
+//			for (int j=0; j<jmenucount; j++) {
+//				MouseListener ml2 = new MouseListener(circle, ((JComponent) jmenu.getMenuComponent(j)));
+//				jmenu.addMouseListener(ml2);
+//				jmenu.addMouseMotionListener(ml2);
+//			}
+//		}
+		
+//		jFrame.addMouseListener(new MouseListener(circle, menubar));
+		
+		jFrame.setGlassPane(circle);
+		circle.setOpaque(false);
+		circle.setVisible(true);
 		jFrame.setVisible(true);
-
 	}
-
-
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(() -> {
-			new Menu();
-		});
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent m) {
-		fileMenu.doClick();
-	}
-
 }
