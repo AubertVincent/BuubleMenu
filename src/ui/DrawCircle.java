@@ -18,10 +18,10 @@ public class DrawCircle extends JComponent {
 
 
 	public DrawCircle () {
-		setBackground(Color.WHITE);
-		MouseListener ml = new MouseListener(this);
-		addMouseListener(ml);
-		addMouseMotionListener(ml);
+		//setBackground(Color.WHITE);
+		//MouseListener ml = new MouseListener(this);
+		//addMouseListener(ml);
+		//addMouseMotionListener(ml);
 
 		// mouseDrag = new Listener(null);
 		// addMouseListener(mouseDrag);
@@ -50,7 +50,7 @@ public class DrawCircle extends JComponent {
 	}
 
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		//super.paintComponent(g);
 		g.setColor(new Color(0, 0, 0, 100));
 		g.fillOval(x, y, width, height);
 	}

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -11,7 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.event.MouseInputListener;
 
 
-public class MouseListener extends MouseAdapter implements MouseInputListener {
+public class MouseListener implements MouseInputListener, MouseMotionListener {
 
 	DrawCircle circle;
 	JComponent component;
@@ -87,10 +88,13 @@ public class MouseListener extends MouseAdapter implements MouseInputListener {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getComponent() instanceof JMenu) {
-//			if (component instanceof JMenu) {
-				((JMenu)component).doClick();
-			}
+
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
 		last = e.getPoint();
 		x = last.x;
 		y = last.y;
@@ -111,12 +115,6 @@ public class MouseListener extends MouseAdapter implements MouseInputListener {
 		
 		last = e.getPoint();
 		circle.repaint();
-		
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 

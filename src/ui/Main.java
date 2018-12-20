@@ -26,6 +26,10 @@ public class Main extends MouseAdapter{
 		
 		DrawCircle circle = new DrawCircle();
 		
+		jFrame.setGlassPane(circle);
+		circle.setOpaque(false);
+		circle.setVisible(true);
+		
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 		JMenuBar menubar = new JMenuBar();
@@ -68,7 +72,7 @@ public class Main extends MouseAdapter{
 
 		exitMenuItem.setToolTipText("Exit application");
 
-		exitMenuItem.addActionListener((event) -> System.exit(0));
+		//exitMenuItem.addActionListener((event) -> System.exit(0));
 
 		fileMenu.add(newMenuItem);
 		fileMenu.add(openMenuItem);
@@ -91,16 +95,18 @@ public class Main extends MouseAdapter{
 		menubar.add(fileMenu);
 		
 //		panel.add(menubar);
+		JPanel p = new JPanel();
+		p.add(menubar, new BorderLayout());
 
-		jFrame.setJMenuBar(menubar);
+		jFrame.add(p);
 		
 //		jFrame.add(panel);
 		
 //		DrawCircle circle = new DrawCircle();
 
 		MouseListener ml = new MouseListener(circle, fileMenu);
-		circle.addMouseListener(ml);
-		circle.addMouseMotionListener(ml);
+		p.addMouseListener(ml);
+		p.addMouseMotionListener(ml);
 		
 
 		
@@ -126,9 +132,7 @@ public class Main extends MouseAdapter{
 		
 //		jFrame.addMouseListener(new MouseListener(circle, menubar));
 		
-		jFrame.setGlassPane(circle);
-		circle.setOpaque(false);
-		circle.setVisible(true);
+		
 		jFrame.setVisible(true);
 	}
 }
