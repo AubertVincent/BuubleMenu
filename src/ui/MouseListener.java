@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.RootPaneContainer;
@@ -29,7 +30,7 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 	private int y;
 
 	int width, height;
-	private Point last;
+	private Point last, menuPosition;
 	
 	ArrayList<JMenuItem> favItems = new ArrayList<JMenuItem>();
 	
@@ -52,12 +53,13 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
-		last = e.getPoint();
-
-		if (e.getComponent() instanceof JMenu) {
+		circle.setBounds(x,y, 50,50);
+		last = SwingUtilities.convertPoint(component, e.getX(), e.getY(), panel);
+		
+		if (component instanceof JMenu) {
 			favItems.get(0).doClick();
-				
+//			menuPosition = last;	
+			System.out.println("position " + last);
 		}
 
 		
@@ -119,9 +121,13 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 		circle.setBounds(x,y, 50,50);
 
 
+//		 && favItems.contains(component.getComponentAt(last))
+		System.out.println("mouse " + last);
+		System.out.println("\n");
 		
-		
-		if(component.getComponentAt(last) instanceof JMenuItem && favItems.contains(component.getComponentAt(last) )) {
+		last = SwingUtilities.convertPoint(component, circle.getX(), circle.getY(), panel);
+
+		if(component.getComponentAt(circle.getLocation()) instanceof JMenu) {
 			System.out.println("here");
 		}
 		
@@ -129,20 +135,7 @@ public class MouseListener implements MouseInputListener, MouseMotionListener {
 		
 	}
 	
-//	 public static Component findComponentUnderGlassPaneAt(Point p, Component top) {
-//		    Component c = null;
-//
-//		    if (top.isShowing()) {
-//		      if (top instanceof RootPaneContainer)
-//		        c =
-//		        ((RootPaneContainer) top).getLayeredPane().findComponentAt(
-//		            SwingUtilities.convertPoint(top, p, ((RootPaneContainer) top).getLayeredPane()));
-//		      else
-//		        c = ((Container) top).findComponentAt(p);
-//		    }
-//
-//		    return c;
-//		  }
+
 
 	
 }

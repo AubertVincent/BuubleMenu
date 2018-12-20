@@ -58,7 +58,7 @@ public class Test {
 
 					@Override
 					public void actionPerformed(ActionEvent e) { //action quand on clique sur un item du menu.
-						System.out.println(j.getText() +" clicked");
+						System.out.println(j.getText() +" clicked " + j.getLocation());
 					}
 				});
 			}
@@ -72,7 +72,7 @@ public class Test {
 		}
 		menu.add(menu3);
 		
-//		panel.setLayout(new BorderLayout());
+		panel.setLayout(new BorderLayout());
 
 		panel.add(menubar, BorderLayout.NORTH);
 		
