@@ -2,8 +2,11 @@ package ui;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 
 import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
@@ -15,7 +18,9 @@ public class MouseListener implements MouseInputListener {
 	private JPanel p;
 	private Point last;
 	private JComponent itemCourant;
-
+	private Vector<JComponent> favoris;
+	private JComponent plusProche; // Le favoris le plus proche de la souris
+									// idée de Julien
 	int width, height;
 	private Circle circle;
 
@@ -23,9 +28,10 @@ public class MouseListener implements MouseInputListener {
 		this.circle = circle;
 	}
 
-	public MouseListener(Circle circle, JComponent itemCourant) {
+	public MouseListener(Circle circle, JComponent itemCourant, Vector<JComponent> favoris) {
 		this.circle = circle;
 		this.itemCourant = itemCourant;
+		this.favoris = favoris;
 	}
 
 	@Override
@@ -36,13 +42,44 @@ public class MouseListener implements MouseInputListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// Enregistre quel bouton de la souris est enfoncé.
+		int buttonDown = e.getButton();
 
+		if (buttonDown == MouseEvent.BUTTON1) {
+			// Bouton GAUCHE enfoncé
+		} else if (buttonDown == MouseEvent.BUTTON2) {
+			// Bouton du MILIEU enfoncé
+		} else if (buttonDown == MouseEvent.BUTTON3) {
+			// Bouton DROIT enfoncé
+			if (this.plusProche instanceof JMenu) {
+				((JMenu) this.plusProche).doClick();
+			} else if (this.plusProche instanceof JMenuItem) {
+				((JMenuItem) this.plusProche).doClick();
+			}
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+		plusProche = null;
+		double distanceminimale = -1;
+		for (JComponent c : favoris) {
+			if (c.isShowing()) {
+				double dist = c.getLocation().distance(e.getX() - c.getWidth() / 2, e.getY() - c.getHeight() / 2);
+
+				if (distanceminimale == -1) {
+					distanceminimale = dist;
+					plusProche = c;
+				} else if (dist < distanceminimale) {
+					distanceminimale = dist;
+					plusProche = c;
+				}
+			}
+			circle.setBounds(e.getX() - (int) distanceminimale, e.getY() - (int) distanceminimale,
+					(int) (distanceminimale * 2), (int) (distanceminimale * 2));
+		}
+		circle.repaint();
 
 	}
 
@@ -66,6 +103,8 @@ public class MouseListener implements MouseInputListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+
+		plusProche = null;
 		last = e.getPoint();
 		x = last.x;
 		y = last.y;
@@ -86,7 +125,6 @@ public class MouseListener implements MouseInputListener {
 
 		circle.setBounds(x, y, 50, 50);
 
-		// circle.setBounds(x, y, 50, 50);
 
 		// && favItems.contains(component.getComponentAt(last))
 		System.out.println("mouse " + last);
@@ -96,9 +134,37 @@ public class MouseListener implements MouseInputListener {
 
 		circle.setX(last.x);
 		circle.setY(last.y);
+		if (itemCourant.getComponentAt(last) instanceof JMenuItem) {
+			System.out.println("location " + itemCourant.getComponentAt(last).getLocation());
+			System.out.println("here");
+		}
 		// if(component.getComponentAt(circle.getLocation()) instanceof JMenu) {
 		// System.out.println("here");
 		// }
+
+		double distanceminimale = -1;
+
+		for (JComponent c : favoris) {
+
+			if (c.isShowing()) {
+				double dist;
+
+				Point comp = c.getLocationOnScreen();
+				comp.x += c.getWidth() / 2;
+				comp.y += c.getHeight() / 2;
+				SwingUtilities.convertPointFromScreen(comp, p);
+				dist = comp.distance(e.getPoint());
+				if (distanceminimale == -1) {
+					distanceminimale = dist;
+					plusProche = c;
+				} else if (dist < distanceminimale) {
+					distanceminimale = dist;
+					plusProche = c;
+				}
+			}
+		}
+		circle.setBounds(e.getX() - (int) distanceminimale, e.getY() - (int) distanceminimale,
+				(int) (distanceminimale * 2), (int) (distanceminimale * 2));
 
 		circle.repaint();
 
