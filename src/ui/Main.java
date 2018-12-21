@@ -153,10 +153,6 @@ public class Main {
 
 		jFrame.addMouseMotionListener(new MouseListener(c));
 
-		for (int i = 0; i < 3; i++) {
-
-		}
-
 	}
 
 	public static void main(String[] args) {
