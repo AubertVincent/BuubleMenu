@@ -1,5 +1,8 @@
 package ui;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -12,15 +15,18 @@ public class Main {
 	}
 
 	private static void createMenuBar() {
+
+		ArrayList<JMenuItem> favItems = new ArrayList<JMenuItem>();
+
 		JFrame jFrame = new JFrame();
 		jFrame.setSize(1000, 600);
 		jFrame.setTitle("Bubble Menu");
 		// setLocationRelativeTo(null);
 
-		Menu m = new Menu(100, 100);
-		jFrame.setGlassPane(m);
-		m.setOpaque(false);
-		m.setVisible(true);
+		Circle c = new Circle(100, 100);
+		jFrame.setGlassPane(c);
+		c.setOpaque(false);
+		c.setVisible(true);
 
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JMenuBar menubar = new JMenuBar();
@@ -49,18 +55,18 @@ public class Main {
 
 		exitMenuItem.setToolTipText("Exit application");
 		exitMenuItem.addActionListener((event) -> System.exit(0));
-		exitMenuItem.addMouseMotionListener(new MouseListener(m));
+		exitMenuItem.addMouseMotionListener(new MouseListener(c, exitMenuItem));
 
 		exitMenuItem2.setToolTipText("Exit application");
 		exitMenuItem2.addActionListener((event) -> System.exit(0));
-		exitMenuItem2.addMouseMotionListener(new MouseListener(m));
+		exitMenuItem2.addMouseMotionListener(new MouseListener(c, exitMenuItem2));
 
 		JMenuItem savemenu = new JMenuItem("Save");
 		JMenuItem savemenu2 = new JMenuItem("Save");
 		JMenuItem openmenu = new JMenuItem("Open");
 		JMenuItem openmenu2 = new JMenuItem("Open");
-		savemenu.addMouseMotionListener(new MouseListener(m));
-		savemenu2.addMouseMotionListener(new MouseListener(m));
+		savemenu.addMouseMotionListener(new MouseListener(c, savemenu));
+		savemenu2.addMouseMotionListener(new MouseListener(c, savemenu2));
 
 		JMenuItem printmenu = new JMenuItem("Print");
 		JMenuItem printmenu2 = new JMenuItem("Print");
@@ -74,23 +80,33 @@ public class Main {
 		JMenuItem closemenu2 = new JMenuItem("Close");
 		JMenuItem selectmenu = new JMenuItem("Select");
 		JMenuItem selectmenu2 = new JMenuItem("Select");
-		printmenu.addMouseMotionListener(new MouseListener(m));
-		printmenu2.addMouseMotionListener(new MouseListener(m));
-		copymenu.addMouseMotionListener(new MouseListener(m));
-		copymenu2.addMouseMotionListener(new MouseListener(m));
-		pastemenu.addMouseMotionListener(new MouseListener(m));
-		pastemenu2.addMouseMotionListener(new MouseListener(m));
-		deletemenu.addMouseMotionListener(new MouseListener(m));
-		deletemenu2.addMouseMotionListener(new MouseListener(m));
-		closemenu.addMouseMotionListener(new MouseListener(m));
-		closemenu2.addMouseMotionListener(new MouseListener(m));
-		selectmenu.addMouseMotionListener(new MouseListener(m));
-		selectmenu2.addMouseMotionListener(new MouseListener(m));
+		printmenu.addMouseMotionListener(new MouseListener(c, printmenu));
+		printmenu2.addMouseMotionListener(new MouseListener(c, printmenu2));
+		copymenu.addMouseMotionListener(new MouseListener(c, copymenu));
+		copymenu2.addMouseMotionListener(new MouseListener(c, copymenu2));
+		pastemenu.addMouseMotionListener(new MouseListener(c, pastemenu));
+		pastemenu2.addMouseMotionListener(new MouseListener(c, pastemenu2));
+		deletemenu.addMouseMotionListener(new MouseListener(c, deletemenu));
+		deletemenu2.addMouseMotionListener(new MouseListener(c, deletemenu2));
+		closemenu.addMouseMotionListener(new MouseListener(c, closemenu));
+		closemenu2.addMouseMotionListener(new MouseListener(c, closemenu2));
+		selectmenu.addMouseMotionListener(new MouseListener(c, selectmenu));
+		selectmenu2.addMouseMotionListener(new MouseListener(c, selectmenu2));
+
+		favItems.add(savemenu);
+		savemenu.setOpaque(true);
+		savemenu.setBackground(Color.CYAN);
+		favItems.add(exitMenuItem);
+		exitMenuItem.setOpaque(true);
+		exitMenuItem.setBackground(Color.CYAN);
+		favItems.add(closemenu);
+		closemenu.setOpaque(true);
+		closemenu.setBackground(Color.CYAN);
 
 		fileMenu.add(savemenu);
 		fileMenu.add(openmenu);
 		fileMenu.add(expMenu);
-		fileMenu.add(exitMenuItem2);
+		fileMenu.add(exitMenuItem);
 		fileMenu.add(printmenu);
 		fileMenu.addSeparator();
 		fileMenu.add(impMenu);
@@ -101,7 +117,7 @@ public class Main {
 		fileMenu.add(closemenu);
 		fileMenu.add(selectmenu);
 
-		fileMenu.addMouseMotionListener(new MouseListener(m));
+		fileMenu.addMouseMotionListener(new MouseListener(c, fileMenu));
 
 		otherMenu.add(savemenu2);
 		otherMenu.add(exitMenuItem2);
@@ -114,14 +130,16 @@ public class Main {
 		otherMenu.add(closemenu2);
 		otherMenu.add(selectmenu2);
 
+		otherMenu.addMouseMotionListener(new MouseListener(c, otherMenu));
+
 		menubar.add(fileMenu);
 		menubar.add(otherMenu);
 		jFrame.setJMenuBar(menubar);
 		jFrame.setVisible(true);
 
-		jFrame.addMouseMotionListener(new MouseListener(m));
+		jFrame.addMouseMotionListener(new MouseListener(c));
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 
 		}
 
